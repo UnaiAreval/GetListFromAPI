@@ -3,7 +3,6 @@ package com.example.listfromapi.data
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.SharedPreferences
-import androidx.core.content.edit
 
 class SettingsRepo(context: Context) {
     // Creem o obrim el fitxer XML anomenat "AppSettings"
