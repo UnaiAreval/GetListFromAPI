@@ -40,7 +40,10 @@ class PokemonViewModel: ViewModel(){
 
                 if (response.isSuccessful){
                     val body = response.body()
-                    Log.d("POKE_LOG", "Pokedex Num. ${body?.get(0)?.id}     Name: ${body?.get(0)?.name}")
+                    for(i  in 0..body?.results!!.lastIndex) {
+                        body.results[i].id = getPokemonIdFromUrl(body.results[i].url)
+                        Log.d("POKE_LOG", "Pokedex Num. ${body.results[i].id}     Name: ${body.results[i].name}")
+                    }
                 }
             } catch (e: Exception){
                 Log.e("POKE_LOG", "An error occurred while trying to get the pokemon list: \n    ${e.message}")
@@ -61,4 +64,13 @@ class PokemonViewModel: ViewModel(){
             }
         }
     }
+}
+
+fun getPokemonIdFromUrl(url: String): Int{
+    var pID = ""
+    for (i in 34..<url.length - 1){
+        pID += url[i]
+    }
+
+    return pID.toInt()
 }

@@ -1,6 +1,7 @@
 package com.example.listfromapi.network
 
 import com.example.listfromapi.model.Pokemon
+import com.example.listfromapi.model.PokemonForList
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Url
@@ -10,7 +11,7 @@ interface PokeAPIclient {
     suspend fun getPokemon(): Response<Pokemon>
 
     @GET("pokemon/")
-    suspend fun getPokemonList(): Response<List<Pokemon>>
+    suspend fun getPokemonList(): Response<PokemonForList>
 
     @GET()
     suspend fun getPokemon(@Url url: String): Response<Pokemon>

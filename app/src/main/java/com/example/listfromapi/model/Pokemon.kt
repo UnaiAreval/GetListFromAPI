@@ -3,14 +3,18 @@ package com.example.listfromapi.model
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
+data class PokemonForList(
+    val results: List<Pokemon>
+)
 
 data class Pokemon (
-    val id: Int,
+    var id: Int,
     val name: String,
     val height: Int,
     val weight: Int,
     val sprites: PokemonImages,
-    val stats: List<Stats>
+    val stats: List<Stats>,
+    val url: String
 )
 
 //Pokemon Stats API DON'T RETURN IT
