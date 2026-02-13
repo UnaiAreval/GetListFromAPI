@@ -3,12 +3,15 @@ package com.example.listfromapi.network
 import com.example.listfromapi.model.Pokemon
 import retrofit2.Response
 import retrofit2.http.GET
+import retrofit2.http.Url
 
 interface PokeAPIclient {
     @GET("pokemon/Zekrom/")
     suspend fun getPokemon(): Response<Pokemon>
 
-    @GET(" ")
+    @GET("pokemon/")
     suspend fun getPokemonList(): Response<List<Pokemon>>
-    //@GET("pokemon/{po}}/") To give it the po parameter and then it will ask for the pokemon with that parameter
+
+    @GET()
+    suspend fun getPokemon(@Url url: String): Response<Pokemon>
 }

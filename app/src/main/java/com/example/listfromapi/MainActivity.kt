@@ -18,7 +18,7 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val pokeView = PokemonViewModel()
-        pokeView.getPokemonList()
+        pokeView.getZekrom()
 
         enableEdgeToEdge()
         setContent {

@@ -58,6 +58,7 @@ dependencies {
     androidTestImplementation(libs.androidx.compose.ui.test.junit4)
     debugImplementation(libs.androidx.compose.ui.tooling)
     debugImplementation(libs.androidx.compose.ui.test.manifest)
+    implementation("androidx.constraintlayout:constraintlayout-compose:1.1.1")
 
     //Dependencies to use API data
     implementation ("com.squareup.retrofit2:retrofit:2.9.0")

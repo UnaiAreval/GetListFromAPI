@@ -22,10 +22,10 @@ class PokemonViewModel: ViewModel(){
                     Log.d("POKE_LOG", "Pokedex num. ${body?.id}")
                     Log.d("POKE_LOG", "Pokemon name: ${body?.name}")
                     Log.d("POKE_LOG", "Height: ${body?.height}     Weight: ${body?.weight}")
-                    if (body?.pokemonImages == null) Log.e("POKE_LOG", "Error finding ${body?.name}s images")
-                    else Log.d("POKE_LOG", "Front image URL: ${body.pokemonImages.front}")
-                    if (body?.stats[0]?.statType?.name == null) Log.e("POKE_LOG", "Error finding ${body?.name}s stats")
-                    else Log.d("POKE_LOG", "Stat ${body.stats[0].statType.name}: ${body.stats[0].baseStat}")
+                    if (body?.sprites == null) Log.e("POKE_LOG", "Error finding ${body?.name}s images")
+                    else Log.d("POKE_LOG", "Front image URL: ${body.sprites.front_default}")
+                    if (body?.stats[0]?.stat?.name == null) Log.e("POKE_LOG", "Error finding ${body?.name}s stats")
+                    else Log.d("POKE_LOG", "Stat ${body.stats[0].stat.name}: ${body.stats[0].base_stat}")
                 }
             } catch (e: Exception) {
                 Log.e("POKE_LOG", "An error occurred while finding the pokemon: \n    ${e.message}")
@@ -44,6 +44,20 @@ class PokemonViewModel: ViewModel(){
                 }
             } catch (e: Exception){
                 Log.e("POKE_LOG", "An error occurred while trying to get the pokemon list: \n    ${e.message}")
+            }
+        }
+    }
+
+    fun getPokemon(id: Int){
+        viewModelScope.launch {
+            try {
+                val response = pokeApiRequest.getPokemon("pokemon/$id/")
+                if (response.isSuccessful){
+                    val body = response.body()
+                    Log.d("POKE_LOG", "Pokedex Num. ${body?.id}     Name: ${body?.name}")
+                }
+            } catch (e: Exception){
+                Log.e("POKE_LOG", "Error finding the pokemon $id")
             }
         }
     }
