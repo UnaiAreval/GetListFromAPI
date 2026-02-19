@@ -9,10 +9,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.lifecycle.ViewModel
-import com.example.listfromapi.model.Pokemon
+import androidx.navigation.NavController
 
 @Composable
-fun ItemDataScreen(pokemon: Pokemon, viewModel: ViewModel){
+fun ItemDataScreen(navController: NavController, viewModel: ViewModel){
+    
     ConstraintLayout(
         modifier = Modifier.fillMaxSize()
             .background(Color.White)
