@@ -1,8 +1,8 @@
 package com.example.listfromapi.view
 
-import android.annotation.SuppressLint
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -26,10 +26,23 @@ import com.example.listfromapi.ui.theme.PokedexButton
 import com.example.listfromapi.ui.theme.PokedexButtonBack
 import com.example.listfromapi.viewModel.PokemonViewModel
 
-@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
 fun NavigationController(navController: NavHostController, viewModel: PokemonViewModel){
     Scaffold(
+        content = { paddingValues ->
+            Box(modifier = Modifier.padding(paddingValues)) {
+                NavHost(navController, startDestination = Routes.ListScreen.route) {
+                    composable(Routes.ListScreen.route) { ListScreen(viewModel, navController) }
+                    composable(Routes.Settings.route) { SettingsScreen() }
+                    composable(Routes.PokemonData.route) {
+                        ItemDataScreen(
+                            navController,
+                            viewModel
+                        )
+                    }
+                }
+            }
+        },
         bottomBar = { BottomAppBar(actions = {
             NavigationBarItem(
                 onClick = {},
@@ -38,7 +51,8 @@ fun NavigationController(navController: NavHostController, viewModel: PokemonVie
                     Icon(
                         painterResource(R.drawable.favorite),
                         contentDescription = "Home List",
-                        modifier = Modifier.size(50.dp)
+                        modifier = Modifier
+                            .size(50.dp)
                             .clip(shape = RoundedCornerShape(20.dp))
                             .border(2.dp, Color.Black, shape = RoundedCornerShape(20.dp))
                             .background(PokedexButton)
@@ -48,13 +62,7 @@ fun NavigationController(navController: NavHostController, viewModel: PokemonVie
                     Text("Favorite", color = Color.Black)
                 }
             )},
-            containerColor = PokedexButtonBack
-        )}
-    ){
-        NavHost(navController, startDestination = Routes.ListScreen.route){
-            composable(Routes.ListScreen.route) { ListScreen(viewModel, navController) }
-            composable(Routes.Settings.route) { SettingsScreen() }
-            composable(Routes.PokemonData.route) { ItemDataScreen(navController, viewModel) }
+            containerColor = PokedexButtonBack)
         }
-    }
+    )
 }
