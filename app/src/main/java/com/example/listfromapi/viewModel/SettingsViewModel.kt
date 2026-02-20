@@ -6,10 +6,18 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.example.listfromapi.data.SettingsRepo
+import com.example.listfromapi.ui.theme.ColorPalette
 import kotlin.jvm.java
 
 class SettingsViewModel(private val repository: SettingsRepo) : ViewModel() {
-    var darkMode = false //Tell if the app uses the dark or the light mode
+    var colorPalette by mutableStateOf(repository.getColorPalette())
+        private set
+
+    fun updateColorPalette(newColorPalette: ColorPalette){
+        colorPalette = newColorPalette
+        repository.safeLocalData("color_palette", colorPalette.name)
+    }
+
     var nomUsuari by mutableStateOf(repository.obtenirNom())
         private set
 

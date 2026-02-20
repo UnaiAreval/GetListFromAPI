@@ -3,6 +3,7 @@ package com.example.listfromapi.data
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.SharedPreferences
+import com.example.listfromapi.ui.theme.ColorPalette
 
 class SettingsRepo(context: Context) {
     // Creem o obrim el fitxer XML anomenat "AppSettings"
@@ -24,5 +25,13 @@ class SettingsRepo(context: Context) {
     // Funció per llegir el nom (retorna buit si no existeix)
     fun obtenirNom(): String {
         return sharedPreferences.getString("nom_usuari", "") ?: ""
+    }
+    fun getColorPalette(): ColorPalette{
+        when (sharedPreferences.getString("color_palette", "")){
+            "Base" -> return ColorPalette.Base
+            "Ocaso" -> return ColorPalette.Ocaso
+            "Master" -> return ColorPalette.Base
+            else -> return ColorPalette.Base
+        }
     }
 }

@@ -5,9 +5,7 @@ import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.fillMaxSize
 import coil.compose.AsyncImage
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
@@ -20,8 +18,7 @@ import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.navigation.NavController
 import com.example.listfromapi.Routes
-import com.example.listfromapi.ui.theme.PokedexBack
-import com.example.listfromapi.ui.theme.PokedexData
+import com.example.listfromapi.ui.theme.AppColors
 import com.example.listfromapi.viewModel.PokemonViewModel
 
 @Composable
@@ -29,14 +26,14 @@ fun ListScreen(navController: NavController, pokemonViewModel: PokemonViewModel)
     LazyColumn(
         modifier = Modifier
             .fillMaxSize()
-            .background(PokedexBack)
+            .background(AppColors.PokedexBack.value)
     ) {
         for (p in pokemonViewModel.pokeList){
             if (p != null) {
                 item {
                     ConstraintLayout(
                         modifier = Modifier
-                            .background(PokedexData)
+                            .background(AppColors.PokedexData.value)
                             .clickable{
                                 pokemonViewModel.getPokemon(p.id)
                                 navController.navigate(Routes.PokemonData.route)
@@ -50,7 +47,7 @@ fun ListScreen(navController: NavController, pokemonViewModel: PokemonViewModel)
                             modifier = Modifier
                                 .fillMaxSize(0.05f)
                                 .clip(RoundedCornerShape(20.dp))
-                                .border(2.dp, PokedexBack, RoundedCornerShape(20.dp))
+                                .border(2.dp, AppColors.PokedexBack.value, RoundedCornerShape(20.dp))
                                 .constrainAs(image) {
                                     top.linkTo(parent.top)
                                     bottom.linkTo(parent.bottom)
