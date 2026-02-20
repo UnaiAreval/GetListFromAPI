@@ -2,7 +2,7 @@ package com.example.listfromapi.view
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
-import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -29,40 +29,61 @@ import com.example.listfromapi.viewModel.PokemonViewModel
 @Composable
 fun NavigationController(navController: NavHostController, viewModel: PokemonViewModel){
     Scaffold(
-        content = { paddingValues ->
-            Box(modifier = Modifier.padding(paddingValues)) {
-                NavHost(navController, startDestination = Routes.ListScreen.route) {
-                    composable(Routes.ListScreen.route) { ListScreen(viewModel, navController) }
-                    composable(Routes.Settings.route) { SettingsScreen() }
-                    composable(Routes.PokemonData.route) {
-                        ItemDataScreen(
-                            navController,
-                            viewModel
-                        )
+        bottomBar = {
+            BottomAppBar(actions = {
+                NavigationBarItem(
+                    onClick = {},
+                    selected = false,
+                    icon = {
+                        Icon(
+                            painterResource(R.drawable.favorite),
+                            contentDescription = "Favorite List",
+                            tint = Color.Black,
+                            modifier = Modifier
+                                .size(50.dp)
+                                .clip(shape = RoundedCornerShape(20.dp))
+                                .border(2.dp, Color.Black, shape = RoundedCornerShape(20.dp))
+                                .background(PokedexButton)
+                                .padding(5.dp)
+                        )},
+                    label = {
+                        Text("Favorite", color = Color.Black)
                     }
-                }
-            }
-        },
-        bottomBar = { BottomAppBar(actions = {
-            NavigationBarItem(
-                onClick = {},
-                selected = false,
-                icon = {
-                    Icon(
-                        painterResource(R.drawable.favorite),
-                        contentDescription = "Home List",
-                        modifier = Modifier
-                            .size(50.dp)
-                            .clip(shape = RoundedCornerShape(20.dp))
-                            .border(2.dp, Color.Black, shape = RoundedCornerShape(20.dp))
-                            .background(PokedexButton)
-                            .padding(5.dp)
-                    )},
-                label = {
-                    Text("Favorite", color = Color.Black)
-                }
-            )},
+                )
+                NavigationBarItem(
+                    onClick = {},
+                    selected = false,
+                    icon = {
+                        Icon(
+                            painterResource(R.drawable.pokemon_settings),
+                            contentDescription = "Settings",
+                            tint = Color.Black,
+                            modifier = Modifier
+                                .size(50.dp)
+                                .clip(shape = RoundedCornerShape(20.dp))
+                                .border(2.dp, Color.Black, shape = RoundedCornerShape(20.dp))
+                                .background(PokedexButton)
+                                .padding(5.dp)
+                        )
+                    },
+                    label = {
+                        Text("Settings", color = Color.Black)
+                    }
+                )
+            },
+                modifier = Modifier.fillMaxHeight(0.15f),
             containerColor = PokedexButtonBack)
         }
-    )
+    ){ paddingValues ->
+        NavHost(navController, startDestination = Routes.ListScreen.route, modifier = Modifier.padding(paddingValues)) {
+            composable(Routes.ListScreen.route) { ListScreen(navController, viewModel) }
+            composable(Routes.Settings.route) { SettingsScreen() }
+            composable(Routes.PokemonData.route) {
+                ItemDataScreen(
+                    navController,
+                    viewModel
+                )
+            }
+        }
+    }
 }

@@ -10,7 +10,7 @@ interface PokeAPIclient {
     @GET("pokemon/Zekrom/")
     suspend fun getPokemon(): Response<Pokemon>
 
-    @GET("pokemon/")
+    @GET("pokemon?offset=0&limit=150")
     suspend fun getPokemonList(): Response<PokemonForList>
 
     @GET()

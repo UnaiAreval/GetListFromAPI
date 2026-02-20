@@ -44,14 +44,12 @@ class PokemonViewModel: ViewModel(){
             try {
                 val response = pokeApiRequest.getPokemonList()
 
-                pokeList = mutableListOf()
                 if (response.isSuccessful){
                     val body = response.body()
                     for(i  in 0..body?.results!!.lastIndex) {
                         body.results[i].id = getPokemonIdFromUrl(body.results[i].url)
                         Log.d("POKE_LOG", "Pokedex Num. ${body.results[i].id}")
-                        getPokemon(body.results[i].id)
-                        pokeList.add(pokemon.value)
+                        if (!pokeList.contains(body.results[i])) pokeList.add(body.results[i])
                     }
                 }
             } catch (e: Exception){

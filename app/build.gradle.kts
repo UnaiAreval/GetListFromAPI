@@ -60,7 +60,7 @@ dependencies {
     debugImplementation(libs.androidx.compose.ui.tooling)
     debugImplementation(libs.androidx.compose.ui.test.manifest)
     implementation("androidx.constraintlayout:constraintlayout-compose:1.1.1")
-
+    implementation("io.coil-kt:coil-compose:2.4.0")
     //Dependencies to use API data
     implementation ("com.squareup.retrofit2:retrofit:2.9.0")
     implementation ("com.squareup.retrofit2:converter-gson:2.9.0")

@@ -14,7 +14,8 @@ data class Pokemon (
     val weight: Int,
     val sprites: PokemonImages,
     val stats: List<Stats>,
-    val url: String
+    val url: String,
+    val favorite: Boolean
 )
 
 //Pokemon Stats API DON'T RETURN IT
