@@ -21,14 +21,26 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
+import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.listfromapi.data.SettingsRepo
 import com.example.listfromapi.ui.theme.AppColors
 import com.example.listfromapi.ui.theme.ColorPalette
+import com.example.listfromapi.viewModel.SettingsViewModel
+import com.example.listfromapi.viewModel.SettingsViewModelFactory
 
 @Composable
 fun SettingsScreen(){
-    var selectedColors: String by remember { mutableStateOf("") }
+
+    val context = LocalContext.current
+    val repository = remember { SettingsRepo(context) }
+    val settingsViewModel: SettingsViewModel = viewModel(
+        factory = SettingsViewModelFactory(repository)
+    )
+
+    var selectedColors: String by remember { mutableStateOf(AppColors.currentPalette.value + " Palette") }
     var expanded: Boolean by remember { mutableStateOf(false) }
 
     Box(modifier = Modifier
@@ -59,8 +71,9 @@ fun SettingsScreen(){
                     .clickable { expanded = true }
                     .fillMaxWidth(0.8f)
                     .background(AppColors.PokedexData.value)
+                    .border(2.dp, Color.Black)
                     .constrainAs(currentColorPalette){
-                        top.linkTo(parent.top, margin = 10.dp)
+                        top.linkTo(parent.top, margin = 20.dp)
                         start.linkTo(parent.start)
                         end.linkTo(parent.end)
                     }
@@ -83,6 +96,8 @@ fun SettingsScreen(){
                         text = { Text(text = colorP.name) },
                         onClick = {
                             expanded = false
+                            AppColors.changeAppColors(colorP)
+                            settingsViewModel.updateColorPalette(colorP)
                             selectedColors = colorP.name + " Palette"
                         })
                 }

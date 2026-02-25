@@ -46,7 +46,7 @@ fun NavigationController(navController: NavHostController, viewModel: PokemonVie
                                 .padding(5.dp)
                         )},
                     label = {
-                        Text("Favorite", color = Color.Black)
+                        Text("Favorite", color = AppColors.TextColor.value)
                     }
                 )
                 NavigationBarItem(
@@ -68,7 +68,7 @@ fun NavigationController(navController: NavHostController, viewModel: PokemonVie
                         )
                     },
                     label = {
-                        Text("Settings", color = Color.Black)
+                        Text("Settings", color = AppColors.TextColor.value)
                     }
                 )
             },
