@@ -75,7 +75,8 @@ fun NavigationController(navController: NavHostController, viewModel: PokemonVie
             containerColor = PokedexButtonBack)
         }
     ){ paddingValues ->
-        NavHost(navController, startDestination = Routes.ListScreen.route, modifier = Modifier.padding(paddingValues)) {
+        NavHost(navController, startDestination = Routes.LoadingScreen.route, modifier = Modifier.padding(paddingValues)) {
+            composable(Routes.LoadingScreen.route) {LoadingList(navController, viewModel)}
             composable(Routes.ListScreen.route) { ListScreen(navController, viewModel) }
             composable(Routes.Settings.route) { SettingsScreen() }
             composable(Routes.PokemonData.route) {

@@ -12,6 +12,7 @@ import androidx.navigation.compose.rememberNavController
 import com.example.listfromapi.ui.theme.ListFromAPITheme
 import com.example.listfromapi.view.NavigationController
 import com.example.listfromapi.viewModel.PokemonViewModel
+import kotlinx.coroutines.delay
 import kotlin.getValue
 
 class MainActivity : ComponentActivity() {
@@ -23,9 +24,8 @@ class MainActivity : ComponentActivity() {
             ListFromAPITheme {
                 Surface(modifier = Modifier.fillMaxSize()) {
                     val navigationController = rememberNavController()
-
                     val pokeView: PokemonViewModel by viewModels()
-                    pokeView.getPokemonList()
+                    pokeView.getPokemons()
                     NavigationController(navigationController, pokeView)
                 }
             }
