@@ -31,6 +31,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.example.listfromapi.Routes
 import com.example.listfromapi.ui.theme.PokedexBack
@@ -41,6 +42,7 @@ import com.example.listfromapi.viewModel.PokemonViewModel
 
 @Composable
 fun ListScreen(navController: NavController, pokemonViewModel: PokemonViewModel){
+    if (pokemonViewModel.pokeList.size != pokemonViewModel.pokemonAmount) navController.navigate(Routes.ListScreen.route)
     LazyColumn(
         modifier = Modifier
             .fillMaxSize()
@@ -59,7 +61,9 @@ fun ListScreen(navController: NavController, pokemonViewModel: PokemonViewModel)
                         .border(2.dp, PokedexBack, RoundedCornerShape(20.dp))
                         .background(PokedexData)
                         .clickable{
-                            navController.navigate(Routes.PokemonData.route)
+                            pokemonViewModel.getPokemon(
+                                index = pokemon.id - 1,
+                                travelToDataScreen = { navController.navigate(Routes.PokemonData.route) })
                         }
                         .padding(10.dp)
                 ) {
