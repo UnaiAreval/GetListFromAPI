@@ -19,6 +19,7 @@ class PokemonViewModel: ViewModel(){
     val pokeList: MutableList<Pokemon?> = mutableListOf()
     val pokemon: MutableState<Pokemon?> = mutableStateOf(null)
     val currentImage = mutableStateOf("")
+    val pokemonSearch = mutableStateOf("")
 
     fun getPokemons(){
         viewModelScope.launch {

@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.BottomAppBar
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.Scaffold
@@ -14,7 +15,6 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
@@ -25,6 +25,7 @@ import com.example.listfromapi.Routes
 import com.example.listfromapi.ui.theme.AppColors
 import com.example.listfromapi.viewModel.PokemonViewModel
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun NavigationController(navController: NavHostController, viewModel: PokemonViewModel){
     Scaffold(
@@ -37,11 +38,11 @@ fun NavigationController(navController: NavHostController, viewModel: PokemonVie
                         Icon(
                             painterResource(R.drawable.favorite),
                             contentDescription = "Favorite List",
-                            tint = Color.Black,
+                            tint = AppColors.TextColor.value,
                             modifier = Modifier
                                 .size(50.dp)
                                 .clip(shape = RoundedCornerShape(20.dp))
-                                .border(2.dp, Color.Black, shape = RoundedCornerShape(20.dp))
+                                .border(2.dp, AppColors.TextColor.value, shape = RoundedCornerShape(20.dp))
                                 .background(AppColors.PokedexButton.value)
                                 .padding(5.dp)
                         )},
@@ -50,19 +51,38 @@ fun NavigationController(navController: NavHostController, viewModel: PokemonVie
                     }
                 )
                 NavigationBarItem(
+                    onClick = { if (viewModel.pokeList.size == viewModel.pokemonAmount) navController.navigate("List") },
+                    selected = false,
+                    icon = {
+                        Icon(
+                            painterResource(R.drawable.pokedex),
+                            contentDescription = "Base List",
+                            tint = AppColors.TextColor.value,
+                            modifier = Modifier
+                                .size(50.dp)
+                                .clip(shape = RoundedCornerShape(20.dp))
+                                .border(2.dp, AppColors.TextColor.value, shape = RoundedCornerShape(20.dp))
+                                .background(AppColors.PokedexButton.value)
+                                .padding(5.dp)
+                        )},
+                    label = {
+                        Text("Pokedex", color = AppColors.TextColor.value)
+                    }
+                )
+                NavigationBarItem(
                     onClick = {
-                        navController.navigate(Routes.Settings.route)
+                        navController.navigate("Settings")
                     },
                     selected = false,
                     icon = {
                         Icon(
                             painterResource(R.drawable.pokemon_settings),
                             contentDescription = "Settings",
-                            tint = Color.Black,
+                            tint = AppColors.TextColor.value,
                             modifier = Modifier
                                 .size(50.dp)
                                 .clip(shape = RoundedCornerShape(20.dp))
-                                .border(2.dp, Color.Black, shape = RoundedCornerShape(20.dp))
+                                .border(2.dp, AppColors.TextColor.value, shape = RoundedCornerShape(20.dp))
                                 .background(AppColors.PokedexButton.value)
                                 .padding(5.dp)
                         )
@@ -76,7 +96,7 @@ fun NavigationController(navController: NavHostController, viewModel: PokemonVie
             containerColor = AppColors.PokedexButtonBack.value)
         }
     ){ paddingValues ->
-        NavHost(navController, startDestination = Routes.ListScreen.route, modifier = Modifier.padding(paddingValues)) {
+        NavHost(navController, startDestination = "Loading", modifier = Modifier.padding(paddingValues)) {
             composable(Routes.LoadingScreen.route) {LoadingList(navController, viewModel)}
             composable(Routes.ListScreen.route) { ListScreen(navController, viewModel) }
             composable(Routes.Settings.route) { SettingsScreen() }

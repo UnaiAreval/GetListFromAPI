@@ -106,6 +106,9 @@ fun LoadingList(navController: NavController, pokemonViewModel: PokemonViewModel
 
     Box(
         modifier = Modifier.fillMaxSize().background(AppColors.PokedexButtonBack.value)
+            .clickable {
+                if (pokemonViewModel.pokeList.size == pokemonViewModel.pokemonAmount) navController.navigate("List")
+            }
     ) {
         CircularProgressIndicator(
             progress = { progress.value },
@@ -120,7 +123,6 @@ fun LoadingList(navController: NavController, pokemonViewModel: PokemonViewModel
             trackColor = AppColors.PokedexBack.value,
             strokeCap = StrokeCap.Round
         )
+        progress.value = ((pokemonViewModel.pokeList.size / pokemonViewModel.pokemonAmount) * 100).toFloat()
     }
-    if (pokemonViewModel.pokeList.size == pokemonViewModel.pokemonAmount) navController.navigate(Routes.LoadingScreen.route)
-    else progress.value = ((pokemonViewModel.pokeList.size / pokemonViewModel.pokemonAmount) * 100).toFloat()
 }
