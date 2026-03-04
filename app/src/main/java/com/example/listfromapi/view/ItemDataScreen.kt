@@ -38,10 +38,7 @@ import androidx.navigation.NavController
 import coil.compose.AsyncImage
 import com.example.listfromapi.R
 import com.example.listfromapi.model.PokemonImages
-import com.example.listfromapi.ui.theme.PokedexBack
-import com.example.listfromapi.ui.theme.PokedexBorder
-import com.example.listfromapi.ui.theme.PokedexButtonBack
-import com.example.listfromapi.ui.theme.PokedexData
+import com.example.listfromapi.ui.theme.AppColors
 import com.example.listfromapi.viewModel.PokemonViewModel
 
 @Composable
@@ -49,7 +46,7 @@ fun ItemDataScreen(navController: NavController, pokemonVM: PokemonViewModel){
 
     Box( modifier = Modifier
         .fillMaxSize()
-        .background(PokedexButtonBack) ){
+        .background(AppColors.PokedexButtonBack.value) ){
         ConstraintLayout(
             modifier = Modifier
                 .fillMaxSize(0.8f)
@@ -61,10 +58,10 @@ fun ItemDataScreen(navController: NavController, pokemonVM: PokemonViewModel){
                         bottomStart = 20.dp
                     )
                 )
-                .background(PokedexBack)
+                .background(AppColors.PokedexBack.value)
                 .border(
                     10.dp,
-                    PokedexBorder,
+                    AppColors.PokedexBorder.value,
                     CutCornerShape(
                         topEnd = 20.dp,
                         topStart = 5.dp,
@@ -82,9 +79,9 @@ fun ItemDataScreen(navController: NavController, pokemonVM: PokemonViewModel){
                 modifier = Modifier
                     .size(150.dp)
                     .clip(CircleShape)
-                    .background(PokedexData)
+                    .background(AppColors.PokedexData.value)
                     .padding(5.dp)
-                    .border(5.dp, PokedexBack, CircleShape)
+                    .border(5.dp, AppColors.PokedexBack.value, CircleShape)
                     .constrainAs(image) {
                         top.linkTo(parent.top, margin = 20.dp)
                         start.linkTo(parent.start)
@@ -96,7 +93,7 @@ fun ItemDataScreen(navController: NavController, pokemonVM: PokemonViewModel){
             Box(
                 modifier = Modifier
                     .size(20.dp)
-                    .background(PokedexData)
+                    .background(AppColors.PokedexData.value)
                     .padding(2.dp)
                     .clickable { show = true }
                     .constrainAs(imageChanger) {
@@ -129,7 +126,7 @@ fun ItemDataScreen(navController: NavController, pokemonVM: PokemonViewModel){
             LazyColumn(
                 modifier = Modifier
                     .width(250.dp)
-                    .background(PokedexData)
+                    .background(AppColors.PokedexData.value)
                     .clip(RoundedCornerShape(20.dp))
                     .constrainAs(stats){
                         top.linkTo(nameAndId.bottom, margin = 10.dp)
@@ -142,7 +139,7 @@ fun ItemDataScreen(navController: NavController, pokemonVM: PokemonViewModel){
                         Text("${stat.stat.name}: ", fontSize = 15.sp, fontWeight = FontWeight.Bold, textAlign = TextAlign.Center, modifier = Modifier.align(Alignment.TopStart).padding(5.dp))
                         Text("Base stat: ${stat.base_stat}  |  Effort: ${stat.effort}", fontSize = 10.sp, fontWeight = FontWeight.Bold, textAlign = TextAlign.Center, modifier = Modifier.align(Alignment.BottomCenter).padding(5.dp))
                     }
-                    Spacer(Modifier.height(1.dp).width(225.dp).background(Color.Black))
+                    Spacer(Modifier.height(1.dp).width(250.dp).background(Color.Black))
                 }
             }
             if (show) ImageSelectorDialog(pokemonVM, show, { show = false })
@@ -160,9 +157,9 @@ fun ImageSelectorDialog(pVM: PokemonViewModel, show: Boolean, onDismiss: () -> U
         ConstraintLayout(
             modifier = Modifier
                 .clip(RoundedCornerShape(20.dp))
-                .background(PokedexData)
+                .background(AppColors.PokedexData.value)
                 .padding(5.dp)
-                .border(2.dp, PokedexBack, RoundedCornerShape(20.dp))
+                .border(2.dp, AppColors.PokedexBack.value, RoundedCornerShape(20.dp))
         ) {
             val (
                 title,
@@ -189,9 +186,9 @@ fun ImageSelectorDialog(pVM: PokemonViewModel, show: Boolean, onDismiss: () -> U
                 modifier = Modifier
                     .size(50.dp)
                     .clip(CircleShape)
-                    .background(PokedexData)
+                    .background(AppColors.PokedexData.value)
                     .padding(5.dp)
-                    .border(2.dp, PokedexBack, CircleShape)
+                    .border(2.dp, AppColors.PokedexBack.value, CircleShape)
                     .constrainAs(frontBase) {
                         top.linkTo(title.bottom, margin = 5.dp)
                         start.linkTo(title.start)
@@ -208,9 +205,9 @@ fun ImageSelectorDialog(pVM: PokemonViewModel, show: Boolean, onDismiss: () -> U
                 modifier = Modifier
                     .size(50.dp)
                     .clip(CircleShape)
-                    .background(PokedexData)
+                    .background(AppColors.PokedexData.value)
                     .padding(5.dp)
-                    .border(2.dp, PokedexBack, CircleShape)
+                    .border(2.dp, AppColors.PokedexBack.value, CircleShape)
                     .constrainAs(frontShiny) {
                         top.linkTo(title.bottom, margin = 5.dp)
                         start.linkTo(frontBase.end, margin = 5.dp)
@@ -227,9 +224,9 @@ fun ImageSelectorDialog(pVM: PokemonViewModel, show: Boolean, onDismiss: () -> U
                 modifier = Modifier
                     .size(50.dp)
                     .clip(CircleShape)
-                    .background(PokedexData)
+                    .background(AppColors.PokedexData.value)
                     .padding(5.dp)
-                    .border(2.dp, PokedexBack, CircleShape)
+                    .border(2.dp, AppColors.PokedexBack.value, CircleShape)
                     .constrainAs(backBase) {
                         top.linkTo(frontBase.bottom, margin = 5.dp)
                         start.linkTo(title.start)
@@ -246,9 +243,9 @@ fun ImageSelectorDialog(pVM: PokemonViewModel, show: Boolean, onDismiss: () -> U
                 modifier = Modifier
                     .size(50.dp)
                     .clip(CircleShape)
-                    .background(PokedexData)
+                    .background(AppColors.PokedexData.value)
                     .padding(5.dp)
-                    .border(2.dp, PokedexBack, CircleShape)
+                    .border(2.dp, AppColors.PokedexBack.value, CircleShape)
                     .constrainAs(backShiny) {
                         top.linkTo(frontShiny.bottom, margin = 5.dp)
                         start.linkTo(backBase.end, margin = 5.dp)
@@ -266,9 +263,9 @@ fun ImageSelectorDialog(pVM: PokemonViewModel, show: Boolean, onDismiss: () -> U
                     modifier = Modifier
                         .size(50.dp)
                         .clip(CircleShape)
-                        .background(PokedexData)
+                        .background(AppColors.PokedexData.value)
                         .padding(5.dp)
-                        .border(2.dp, PokedexBack, CircleShape)
+                        .border(2.dp, AppColors.PokedexBack.value, CircleShape)
                         .constrainAs(otherBase) {
                             top.linkTo(backBase.bottom, margin = 5.dp)
                             start.linkTo(title.start)
@@ -285,9 +282,9 @@ fun ImageSelectorDialog(pVM: PokemonViewModel, show: Boolean, onDismiss: () -> U
                     modifier = Modifier
                         .size(50.dp)
                         .clip(CircleShape)
-                        .background(PokedexData)
+                        .background(AppColors.PokedexData.value)
                         .padding(5.dp)
-                        .border(2.dp, PokedexBack, CircleShape)
+                        .border(2.dp, AppColors.PokedexBack.value, CircleShape)
                         .constrainAs(otherShiny) {
                             top.linkTo(backShiny.bottom, margin = 5.dp)
                             end.linkTo(title.end)

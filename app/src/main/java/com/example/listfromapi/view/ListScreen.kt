@@ -4,9 +4,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -25,19 +23,14 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.example.listfromapi.Routes
-import com.example.listfromapi.ui.theme.PokedexBack
-import com.example.listfromapi.ui.theme.PokedexBorder
-import com.example.listfromapi.ui.theme.PokedexButtonBack
-import com.example.listfromapi.ui.theme.PokedexData
+import com.example.listfromapi.ui.theme.AppColors
 import com.example.listfromapi.viewModel.PokemonViewModel
 
 @Composable
@@ -46,7 +39,7 @@ fun ListScreen(navController: NavController, pokemonViewModel: PokemonViewModel)
     LazyColumn(
         modifier = Modifier
             .fillMaxSize()
-            .background(PokedexBack),
+            .background(AppColors.PokedexBack.value),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         item{
@@ -58,8 +51,8 @@ fun ListScreen(navController: NavController, pokemonViewModel: PokemonViewModel)
                     modifier = Modifier
                         .fillMaxWidth(0.8f)
                         .clip(shape = RoundedCornerShape(20.dp))
-                        .border(2.dp, PokedexBack, RoundedCornerShape(20.dp))
-                        .background(PokedexData)
+                        .border(2.dp, AppColors.PokedexBack.value, RoundedCornerShape(20.dp))
+                        .background(AppColors.PokedexData.value)
                         .clickable{
                             pokemonViewModel.getPokemon(
                                 index = pokemon.id - 1,
@@ -74,7 +67,7 @@ fun ListScreen(navController: NavController, pokemonViewModel: PokemonViewModel)
                         modifier = Modifier
                             .size(75.dp)
                             .clip(shape = RoundedCornerShape(50.dp))
-                            .border(2.dp, PokedexBack, RoundedCornerShape(50.dp))
+                            .border(2.dp, AppColors.PokedexBack.value, RoundedCornerShape(50.dp))
                             .constrainAs(image) {
                                 top.linkTo(parent.top)
                                 bottom.linkTo(parent.bottom)
@@ -112,19 +105,19 @@ fun LoadingList(navController: NavController, pokemonViewModel: PokemonViewModel
     val progress = remember {mutableStateOf(0f)}
 
     Box(
-        modifier = Modifier.fillMaxSize().background(PokedexButtonBack)
+        modifier = Modifier.fillMaxSize().background(AppColors.PokedexButtonBack.value)
     ) {
         CircularProgressIndicator(
             progress = { progress.value },
             modifier = Modifier
                 .align(Alignment.Center)
-                .border(5.dp, PokedexBorder, CircleShape)
+                .border(5.dp, AppColors.PokedexBorder.value, CircleShape)
                 .padding(10.dp)
                 .size(150.dp)
-                .background(PokedexBack, CircleShape),
-            color = PokedexData,
+                .background(AppColors.PokedexBack.value, CircleShape),
+            color = AppColors.PokedexData.value,
             strokeWidth = 25.dp,
-            trackColor = PokedexBack,
+            trackColor = AppColors.PokedexBack.value,
             strokeCap = StrokeCap.Round
         )
     }
