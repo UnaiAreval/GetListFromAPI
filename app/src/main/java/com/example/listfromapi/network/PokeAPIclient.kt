@@ -9,9 +9,8 @@ import retrofit2.http.Url
 interface PokeAPIclient {
     @GET("pokemon/Zekrom/")
     suspend fun getPokemon(): Response<Pokemon>
-
-    @GET("pokemon?offset=0&limit=150")
-    suspend fun getPokemonList(): Response<PokemonForList>
+    @GET()
+    suspend fun getPokemonList(@Url url: String): Response<PokemonForList>
 
     @GET()
     suspend fun getPokemon(@Url url: String): Response<Pokemon>

@@ -77,6 +77,7 @@ fun NavigationController(navController: NavHostController, viewModel: PokemonVie
         }
     ){ paddingValues ->
         NavHost(navController, startDestination = Routes.ListScreen.route, modifier = Modifier.padding(paddingValues)) {
+            composable(Routes.LoadingScreen.route) {LoadingList(navController, viewModel)}
             composable(Routes.ListScreen.route) { ListScreen(navController, viewModel) }
             composable(Routes.Settings.route) { SettingsScreen() }
             composable(Routes.PokemonData.route) {
