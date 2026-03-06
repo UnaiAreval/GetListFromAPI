@@ -1,5 +1,6 @@
 package com.example.listfromapi.viewModel
 
+import android.util.Log
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
@@ -14,8 +15,9 @@ class SettingsViewModel(private val repository: SettingsRepo) : ViewModel() {
         private set
 
     fun updateColorPalette(newColorPalette: ColorPalette){
-        colorPalette = newColorPalette
-        repository.safeLocalData("color_palette", colorPalette.name)
+        Log.d("Settings", "Color palette ${newColorPalette.name}")
+        repository.safeLocalData("color_palette", newColorPalette.name)
+        colorPalette = repository.getColorPalette()
     }
 
     var nomUsuari by mutableStateOf(repository.obtenirNom())
