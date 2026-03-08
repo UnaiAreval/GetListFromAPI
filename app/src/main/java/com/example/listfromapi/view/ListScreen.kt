@@ -18,8 +18,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -101,14 +100,31 @@ fun ListScreen(navController: NavController, pokemonViewModel: PokemonViewModel)
 }
 
 @Composable
-fun LoadingList(navController: NavController, pokemonViewModel: PokemonViewModel){
-    val progress = remember {mutableStateOf(0f)}
+fun LoadingList(navController: NavController, pokemonViewModel: PokemonViewModel) {
+    val currentSize = pokemonViewModel.pokeList.size
+    val totalAmount = pokemonViewModel.pokemonAmount
+
+    val progress = if (totalAmount > 0) {
+        currentSize.toFloat() / totalAmount.toFloat()
+    } else {
+        0f
+    }
+
+    LaunchedEffect(currentSize, totalAmount) {
+        if (totalAmount > 0 && currentSize >= totalAmount) {
+            navController.navigate(Routes.ListScreen.route) {
+                popUpTo(Routes.LoadingScreen.route) { inclusive = true }
+            }
+        }
+    }
 
     Box(
-        modifier = Modifier.fillMaxSize().background(AppColors.PokedexButtonBack.value)
+        modifier = Modifier
+            .fillMaxSize()
+            .background(AppColors.PokedexButtonBack.value)
     ) {
         CircularProgressIndicator(
-            progress = { progress.value },
+            progress = { progress },
             modifier = Modifier
                 .align(Alignment.Center)
                 .border(5.dp, AppColors.PokedexBorder.value, CircleShape)
@@ -121,6 +137,4 @@ fun LoadingList(navController: NavController, pokemonViewModel: PokemonViewModel
             strokeCap = StrokeCap.Round
         )
     }
-    if (pokemonViewModel.pokeList.size == pokemonViewModel.pokemonAmount) navController.navigate(Routes.LoadingScreen.route)
-    else progress.value = ((pokemonViewModel.pokeList.size / pokemonViewModel.pokemonAmount) * 100).toFloat()
 }
