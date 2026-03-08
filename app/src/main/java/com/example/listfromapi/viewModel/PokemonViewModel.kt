@@ -2,11 +2,10 @@ package com.example.listfromapi.viewModel
 
 import android.util.Log
 import androidx.compose.runtime.MutableState
-import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import androidx.navigation.NavController
 import com.example.listfromapi.model.Pokemon
 import com.example.listfromapi.network.PokeAPIclient
 import com.example.listfromapi.network.retrofitBuilder
@@ -16,10 +15,13 @@ class PokemonViewModel: ViewModel(){
     private val retrofit = retrofitBuilder().build()
     private val pokeApiRequest = retrofit.create(PokeAPIclient::class.java)
     val pokemonAmount = 151
-    val pokeList: MutableList<Pokemon?> = mutableListOf()
+    val pokeList = mutableStateListOf<Pokemon?>()
     val pokemon: MutableState<Pokemon?> = mutableStateOf(null)
     val currentImage = mutableStateOf("")
-    val pokemonSearch = mutableStateOf("")
+
+    init {
+        getPokemons()
+    }
 
     fun getPokemons(){
         viewModelScope.launch {
