@@ -37,11 +37,11 @@ fun NavigationController(navController: NavHostController, viewModel: PokemonVie
                         Icon(
                             painterResource(R.drawable.favorite),
                             contentDescription = "Favorite List",
-                            tint = Color.Black,
+                            tint = AppColors.TextColor.value,
                             modifier = Modifier
                                 .size(50.dp)
                                 .clip(shape = RoundedCornerShape(20.dp))
-                                .border(2.dp, Color.Black, shape = RoundedCornerShape(20.dp))
+                                .border(2.dp, AppColors.TextColor.value, shape = RoundedCornerShape(20.dp))
                                 .background(AppColors.PokedexButton.value)
                                 .padding(5.dp)
                         )},
@@ -58,11 +58,11 @@ fun NavigationController(navController: NavHostController, viewModel: PokemonVie
                         Icon(
                             painterResource(R.drawable.pokemon_settings),
                             contentDescription = "Settings",
-                            tint = Color.Black,
+                            tint = AppColors.TextColor.value,
                             modifier = Modifier
                                 .size(50.dp)
                                 .clip(shape = RoundedCornerShape(20.dp))
-                                .border(2.dp, Color.Black, shape = RoundedCornerShape(20.dp))
+                                .border(2.dp, AppColors.TextColor.value, shape = RoundedCornerShape(20.dp))
                                 .background(AppColors.PokedexButton.value)
                                 .padding(5.dp)
                         )

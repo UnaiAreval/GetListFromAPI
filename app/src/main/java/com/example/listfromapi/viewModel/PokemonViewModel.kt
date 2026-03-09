@@ -37,29 +37,27 @@ class PokemonViewModel: ViewModel(){
             // Si hi ha text, filtrem la llista completa
             filteredList.clear()
             val results = pokeList.filter { pokemon ->
-                // 'ignoreCase = true' fa que li sigui igual majúscules que minúscules
-                if (pokemon != null) pokemon.name.contains(text, ignoreCase = true)
+                if (pokemon != null) pokemon.name.startsWith(text, ignoreCase = true)
                 else false
             }
-            filteredList.addAll(results as Collection<Pokemon>)
+            for (p in results) if (p != null) filteredList.add(p)
         }
     }
 
     fun onActiveChange(isActive: Boolean) {
         active.value = isActive
-        onSearchTextChange("")
         if (!isActive) {
             pokeNameFilter.value = ""
             filteredList.clear()
         }
     }
 
-    fun onSearch(text: String) {
-        if (text.isNotEmpty()) {
+    fun onSearch() {
+        if (pokeNameFilter.value.isNotEmpty()) {
             if (searchHistory.size > 5){
                 searchHistory.removeAt(0)
             }
-            searchHistory.add(text)
+            searchHistory.add(pokeNameFilter.value)
         }
     }
 
